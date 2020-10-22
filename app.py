@@ -46,6 +46,9 @@ def completelogin():
         print(nameinfo)
         if str(x[0]) == str(nameinfo) and  str(x[1]) == str(passinfo):
                 Label(loginscreen,text="Success!", fg="green").pack()
+                curruser = nameinfo
+                greeting.set("Welcome to the DCM. \nCurrently logged in as: "+curruser)
+                screen.update_idletasks()
                 return
     Label(loginscreen,text="Login unsuccessful.", fg="red").pack()
 
@@ -74,15 +77,22 @@ def login():
     passwordentered = Entry(loginscreen,textvariable = password)
     passwordentered.pack()
     Button(loginscreen,text = "Login", command=completelogin).pack()
+    
 
 
 
 def main_screen():
     global screen
+    global curruser
+    global greeting
+    curruser = "guest"
+     
     screen = Tk()
     screen.geometry("500x250")
     screen.title("DCM Main")
-    Label(text = "Welcome to DCM", font = ("Times",13), bg="red").pack()
+    greeting = StringVar()
+    greeting.set("Welcome to DCM, "+curruser)
+    Label(textvariable=greeting, font = ("Times",25), bg="red").pack()
     Label(text = "        ",bg  ="red").pack()
     Label(text = "        ",bg  ="red").pack()
     Button(text = "Register new user", command = newuser).pack()
